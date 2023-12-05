@@ -1,0 +1,26 @@
+const int soilMoisturePin = A0;  
+const int relayPin = 8;         
+
+int soilMoistureThreshold = 500; 
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(9,LOW);
+}
+
+void loop() {
+  int soilMoistureValue = analogRead(soilMoisturePin);
+
+  Serial.print("Soil Moisture: ");
+  Serial.println(soilMoistureValue);
+
+  if (soilMoistureValue < soilMoistureThreshold) {
+    digitalWrite(relayPin, HIGH);
+    Serial.println("Watering activated");
+  } else {
+    digitalWrite(relayPin, LOW);
+    Serial.println("Soil moisture is sufficient");
+  }
+
+  delay(1000);
